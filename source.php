@@ -6,21 +6,24 @@
  * $( ".selector" ).autocomplete({ source: "sourc.php" });
  */
 
+//be sure to include this file!
 require_once('.functions.php');
 
-$user_input = $_GET['term'];
-
-//queries db for distinct strings
+//enter your login info into included file
 require_once('.db-login-info.php');
 $DBH = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
 
-$field = "category";
-$table = "link";
+//enter db table and field name for query
+$field = "";
+$table = "";
+
+//get text entered by user into autocomplete field
+$user_input = $_GET['term'];
 
 //get php_array of fields
 $php_array = rowsToArray($DBH, $field, $table);
 
-//filter array based on existing term (aka what's been typed)
+//filter array to only include elements that include $user_input
 $temp_array = array();
 foreach ($php_array as $element) {
 	if (substr($element, 0, strlen($user_input)) === $user_input) {
@@ -29,7 +32,7 @@ foreach ($php_array as $element) {
 	$php_array = $temp_array;
 }
 
-//get json array
+//convert filtered array to json
 $json_str = arrayToJson($php_array); 
 
 //return json array to form for autocomplete
