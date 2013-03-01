@@ -3,7 +3,7 @@
  * This script is triggered when user starts typing into category field
  * on form.  It returns all existing field entries that begin with entered text.
  * script is reference like this:
- * $( ".selector" ).autocomplete({ source: "sourc.php" });
+ * $( ".selector" ).autocomplete({ source: "source.php" });
  */
 
 //be sure to include this file!
